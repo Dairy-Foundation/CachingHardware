@@ -1,1 +1,4 @@
 include(':CachingHardware')
+
+include(':TeamCode')
+include(':FtcRobotController')

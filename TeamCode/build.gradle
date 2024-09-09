@@ -29,14 +29,6 @@ dependencies {
     testImplementation 'org.testng:testng:6.9.6'
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
 
-//    implementation('com.github.Dairy-Foundation.Dairy:Core:master-SNAPSHOT')
-//    implementation('com.github.Dairy-Foundation.Dairy:Calcified:master-SNAPSHOT')
-//    implementation('com.github.Dairy-Foundation.Dairy:DataCarton:master-SNAPSHOT')
-    implementation project(':Core')
-    implementation project(':Calcified')
-    implementation project(':Pasteurized')
-    implementation project(':DataCarton')
-    implementation project(':Mercurial')
-//    implementation project(':MilkMan')
-    implementation project(':Sinister')
+    implementation('com.github.Dairy-Foundation:CachingHardware:v1')
+//    implementation project(':CachingHardware')
 }

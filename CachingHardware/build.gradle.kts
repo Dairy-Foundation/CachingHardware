@@ -39,10 +39,9 @@ android {
 dependencies {
 	//noinspection GradleDependency
 	implementation("androidx.appcompat:appcompat:1.2.0")
-	testImplementation("org.testng:testng:6.9.6")
 
-	compileOnly("org.firstinspires.ftc:RobotCore:9.0.1")
-	compileOnly("org.firstinspires.ftc:FtcCommon:9.0.1")
+	compileOnly("org.firstinspires.ftc:RobotCore:10.0.0")
+	compileOnly("org.firstinspires.ftc:FtcCommon:10.0.0")
 }
 
 publishing {
@@ -50,7 +49,7 @@ publishing {
 		register<MavenPublication>("release") {
 			groupId = "dev.frozenmilk.dairy"
 			artifactId = "CachingHardware"
-			version = "v0.0.0"
+			version = "1.0.0"
 
 			afterEvaluate {
 				from(components["release"])
@@ -59,8 +58,12 @@ publishing {
 	}
 	repositories {
 		maven {
-			name = "CachingHardware"
-			url = uri("${project.buildDir}/release")
+			name = "Dairy"
+			url = uri("https://repo.dairy.foundation/releases")
+			credentials(PasswordCredentials::class)
+			authentication {
+				create<BasicAuthentication>("basic")
+			}
 		}
 	}
 }

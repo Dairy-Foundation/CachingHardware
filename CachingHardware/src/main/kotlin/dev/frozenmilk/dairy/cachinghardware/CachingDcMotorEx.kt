@@ -1,18 +1,18 @@
 package dev.frozenmilk.dairy.cachinghardware
 
-import com.qualcomm.robotcore.hardware.DcMotorSimple
+import com.qualcomm.robotcore.hardware.DcMotorEx
 import kotlin.math.abs
 
-open class CachingDcMotorSimple
+open class CachingDcMotorEx
 /**
- * @param dcMotorSimple the motor to encapsulate in the caching control
+ * @param dcMotorEx the motor to encapsulate in the caching control
  * @param cachingTolerance the power delta threshold at which a motor write will occur.
  */
 @JvmOverloads
 constructor(
-	open val dcMotorSimple: DcMotorSimple,
+	open val dcMotorEx: DcMotorEx,
 	open var cachingTolerance: Double = 0.005
-) : DcMotorSimple by dcMotorSimple {
+) : DcMotorEx by dcMotorEx {
 	private var cachedPower = Double.NaN
 	/**
 	 * Checks if the change in [power] since last write exceeds [cachingTolerance], if so, does a hardware write (actually sets the power)
@@ -26,7 +26,7 @@ constructor(
 		synchronized(this) {
 			if (abs(corrected - cachedPower) >= cachingTolerance || (corrected == 0.0 && cachedPower != 0.0) || (corrected >= 1.0 && !(cachedPower >= 1.0)) || (corrected <= -1.0 && !(cachedPower <= -1.0)) || cachedPower.isNaN()) {
 				cachedPower = corrected
-				dcMotorSimple.power = corrected
+				dcMotorEx.power = corrected
 			}
 		}
 	}
@@ -44,7 +44,7 @@ constructor(
 		synchronized(this) {
 			if (abs(corrected - cachedPower) >= cachingTolerance || (corrected == 0.0 && cachedPower != 0.0) || (corrected >= 1.0 && !(cachedPower >= 1.0)) || (corrected <= -1.0 && !(cachedPower <= -1.0)) || cachedPower.isNaN()) {
 				cachedPower = corrected
-				dcMotorSimple.power = corrected
+				dcMotorEx.power = corrected
 				return true
 			}
 		}
