@@ -23,10 +23,10 @@ constructor(
 	 * @see ServoController.pwmEnable
 	 */
 	override fun setPosition(position: Double) {
-		val corrected = position.coerceIn(-1.0..1.0)
-		// will accept the input if it is targeting 0, or full position in any direction, or if it has changed a sufficient amount
+		val corrected = position.coerceIn(0.0..1.0)
+		// will accept the input if it is full position in any direction, or if it has changed a sufficient amount
 		synchronized(this) {
-			if (abs(corrected - cachedPosition) >= cachingTolerance || (corrected == 0.0 && cachedPosition != 0.0) || (corrected >= 1.0 && !(cachedPosition >= 1.0)) || (corrected <= -1.0 && !(cachedPosition <= -1.0)) || cachedPosition.isNaN()) {
+			if (abs(corrected - cachedPosition) >= cachingTolerance || (corrected <= 0.0 && !(cachedPosition <= 0.0)) || (corrected >= 1.0 && !(cachedPosition >= 1.0)) || cachedPosition.isNaN()) {
 				cachedPosition = corrected
 				servo.position = corrected
 			}
@@ -42,10 +42,10 @@ constructor(
 	 * @return if a hardware write to update the output to the servo was executed
 	 */
 	open fun setPositionResult(position: Double): Boolean {
-		val corrected = position.coerceIn(-1.0..1.0)
-		// will accept the input if it is targeting 0, or full position in any direction, or if it has changed a sufficient amount
+		val corrected = position.coerceIn(0.0..1.0)
+		// will accept the input if it is full position in any direction, or if it has changed a sufficient amount
 		synchronized(this) {
-			if (abs(corrected - cachedPosition) >= cachingTolerance || (corrected == 0.0 && cachedPosition != 0.0) || (corrected >= 1.0 && !(cachedPosition >= 1.0)) || (corrected <= -1.0 && !(cachedPosition <= -1.0)) || cachedPosition.isNaN()) {
+			if (abs(corrected - cachedPosition) >= cachingTolerance || (corrected <= 0.0 && !(cachedPosition <= 0.0)) || (corrected >= 1.0 && !(cachedPosition >= 1.0)) || cachedPosition.isNaN()) {
 				cachedPosition = corrected
 				servo.position = corrected
 				return true
